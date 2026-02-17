@@ -38,7 +38,7 @@ class Customer:
                     self.dish = value[0]
                     self.price = price
                     return
-            print("Invalid Dish Name! Try again.")
+            print("Invalid Dish Name! ")
 
     def quantity(self):
         while True:
@@ -73,9 +73,9 @@ class Hotel:
     # Generate bill
     def generate_bill(self, table, order):
         bill = ""
-        bill += "\n" + "-" * 45
+        bill += "\n" + "-" 
         bill += "\n        HOTEL BILL"
-        bill += "\n" + "-" * 45
+        bill += "\n" + "-"
 
         bill += f"\nCustomer : {order['customer']}"
         bill += f"\nTable No : {table}"
@@ -84,9 +84,9 @@ class Hotel:
         bill += f"\nQuantity : {order['qty']}"
         bill += f"\nPrice    : {order['price']} Rs"
 
-        bill += "\n" + "-" * 45
+        bill += "\n" + "-" 
         bill += f"\nTotal Amount : {order['total']} Rs"
-        bill += "\n" + "-" * 45
+        bill += "\n" + "-" 
 
         return bill
 
@@ -125,7 +125,7 @@ class Hotel:
 
     # Print bill
     def print_bill(self, bill):
-        ch = input("\nDo you want to print bill? (yes/no): ").lower()
+        ch = input("\nDo you want to print bill? (yes/no): ")
         if ch == "yes":
             print(bill)
         else:
@@ -136,7 +136,7 @@ class Hotel:
         print("HOTEL BILL PROJECT")
         while True:
             self.take_order()
-            again = input("\nTake another order? (yes/no): ").lower()
+            again = input("\nTake another order? (yes/no): ")
             if again != "yes":
                 break
         print("\nThank You! Visit Again")
@@ -147,3 +147,4 @@ class Hotel:
 if __name__ == "__main__":
     system = Hotel()
     system.run()
+
