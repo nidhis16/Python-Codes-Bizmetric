@@ -766,3 +766,142 @@ for i in range(200, 251):
     if i % 2 == 0:
         even.append(i)
 print(even)
+
+# 35.	List2 = [2,70,'work', para, 2.5, [1,2,3], (1,2), {1,2}, {1:'a', 2:'b'}, 3,10,302.5]
+#Multiply each and every element by 2 and display the answer
+list2 = [2, 70, 'work', 'para', 2.5, [1,2,3], (1,2), {1,2}, {1:'a',2:'b'}, 3, 10, 302.5]
+for item in list2:
+    try:
+        print(item * 2)
+    except TypeError:
+        print ("Cannot multiply")
+
+# 36.	List2 = [2,70,'work', para, 2.5, [1,2,3], (1,2), {1,2}, {1:'a', 2:'b'}, 3,10,302.5]
+#Multiply each and every element from list2 by 2 and store the answer in list3
+list3 = []
+for item in list2:
+    try:
+        list3.append(item * 2)
+    except TypeError:
+        list3.append(item)  
+print("List3:", list3)
+
+# 37.	Create a function to accept marks from user utilize exception concept to validate proper marks.
+def input_marks():
+    while True:
+        try:
+            marks = int(input("Enter marks: "))
+            if 0 <= marks <= 100:
+                return marks
+            else:
+                print("Enter marks between 0-100: ")
+        except ValueError:
+            print("Enter valid marks")
+
+#38.	Create a function to validate user first name/last name. User first name/last name should contain only characters. No special characters, numbers, space in name 
+def validate_name(name):
+    if name.isalpha():
+        return True
+    else:
+        return False
+    
+# 39.	Create a function to accept mobile number. Mobile number should contain 10 digits. No Special character, alphabets and space. 
+def accept_mobile():
+    while True:
+        mobile = input("Enter mobile number: ")
+        if mobile.isdigit() and len(mobile) == 10:
+            return mobile
+        else:
+            print("Invalid mobile number")
+
+# 40.	Create a function to generate auto-password based on specific person details. Ask user to enter name, DOB. And password must be First name 4 characters and year of birth.
+def generate_password():
+    name = input("Enter First Name: ")
+    dob = input("Enter DOB (DD-MM-YYYY): ")
+    year = dob.split('-')[2] 
+    password = name[:4] + year
+    print("Generated Password:", password)
+    return password
+
+# 41.	Create a empty dictionary and ask user to enter values as name, DOB, mobile number add all the details in dictionary with customer number as 1 for first time. If user try to enter another value, then number should increase as 2 with new details and previous values should not change.
+# For example:
+# {}
+# {1:{name : "Sachin", "DOB": "21-06-1965" , "mobile": "1234123423"}}
+
+# {1:{name : "Sachine", "DOB": "21-06-1965" , "mobile": "1234123423"},
+# 2: {name : "Sumedh", "DOB": "02-02-2002" , "mobile": "1234123433"}}
+cust_dict = {}
+
+def add_customer():
+    customer_no = len(cust_dict) + 1
+    name = input("Enter name: ")
+    dob = input("Enter DOB:  ")
+    mobile = accept_mobile()
+    cust_dict[customer_no] = {"name": name, "DOB": dob, "mobile": mobile}
+    print("Customer added:", cust_dict[customer_no])
+
+# 42.	Based on the above example create the dictionary and save the same in a cust_info.txt or cust_info.log
+# 43.	Based on the above example read the file cust_info.txt . check if dictionary any information is available in the file. If there is information then read the dictionary store into one variable and then append new information of customer if added.
+# 44.	Create a table  cust_info as sr_no, name, DOB, mobile. Ask user to enter the information from python code. Validate all fields and after validation insert records in the table.
+
+
+# 45.	Dict1= {“Key”: {“subkey”:20} ,  “k2”:{“sub2” : 5}, “k3” : {“sub4” :16},  “k4” : {“sub4” : 6}}
+# Sort elements based on values
+# Output must be {,  “k2”:{“sub2” : 5}, “k4” : {“sub4” : 6},  “k3” : {“sub4” : 16}, “Key”:{“subkey”:20}}
+Dict1 = {"Key": {"subkey": 20}, "k2": {"sub2": 5}, "k3": {"sub4":16}, "k4": {"sub4":6}}
+sorted_dict = dict(sorted(Dict1.items(), key=lambda x: list(x[1].values())[0]))
+print("Sorted Dict:", sorted_dict)
+
+# 46.	Create a function to calculate age till now.
+from datetime import datetime
+def calculate_age(dob):
+    dob_date = datetime.strptime(dob, "%d-%m-%Y")
+    today = datetime.today()
+    age = today.year - dob_date.year - ((today.month, today.day) < (dob_date.month, dob_date.day))
+    return age
+
+# 47.	Create a function to check age eligibility for given customer based on DOB. Function will take two input DOB and ELIGIBILITY age.
+def check_eligibility(dob, eligible_age):
+    age = calculate_age(dob)
+    if age >= eligible_age:
+        return True
+    else:
+        return False
+    
+# 48.	Create a function to check if string is palindrome or not ? For example, if input is NITIN then reverse of the string is same then it is palindrome. If input is ANIL then reverse is LINA which is not same then it is not palindrome.  
+def is_palindrome(s):
+    sr = s.replace(" ", "")
+    return sr == sr[::-1]
+
+# 49.	Create a function to generate a Fibonacci Series. 0 1 1 2 3 5 8 13 21 34 …..  upto 100 
+def fibonacci():
+    fib = [0,1]
+    while fib[-1] + fib[-2] <= 100:
+        fib.append(fib[-1] + fib[-2])
+    return fib
+print("Fibonacci series up to 100:", fibonacci())
+
+# 50.	Write a code to generate factorial of the number  For example: factorial of 5 = 5! = 5*4*3*2*1
+def factorial(n):
+    result = 1
+    for i in range(1,n+1):
+        result *= i
+    return result
+print("Factorial ", factorial(4))
+
+# 51.	Write a program to find largest number in the list.
+num = [10, 5, 78, 23, 90, 33]
+print("Largest number:", max(num))
+
+# 52.	Write a program to check frequency of each element in the list.
+lst = [1,2,3,2,1,2,3,4,5]
+freq = {}
+for i in lst:
+    freq[i] = freq.get(i,0) + 1
+print("Frequency:", freq)
+
+# 53.	There are two string l1 =[ 1,2,3,4,5] and l2 =[3,2,8,7,9] then write a program to find common elements in the list.
+l1 = [1,2,3,4,5]
+l2 = [3,2,8,7,9]
+common = list(set(l1).intersection(set(l2)))
+print("Common elements:", common)
