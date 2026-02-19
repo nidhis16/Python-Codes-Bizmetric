@@ -1,4 +1,4 @@
-#################################  INDEX  #########################################
+# #################################  INDEX  #########################################
 # 1.	
 name = ''' Hi How are you?
 Starterd learning python.
@@ -222,31 +222,31 @@ transport_per_sem = 13000
 
 def user_input():
     subject = input("Enter Subject (HR/Finance/Marketing/DS): ")
-    analytics = input("Do you want Analytics? (y/n): ")
-    hostel = input("Do you want Hostel? (y/n): ")
+    analytics = input("Do you want Analytics? (y/n): ").lower()
+    hostel = input("Do you want Hostel? (y/n): ").lower()
     food_months = int(input("Enter number of months for food: "))
-    transport = input("Transportation (semester/annual): ")
+    transport = input("Transportation (semester/annual): ").lower()
 
     return subject, analytics, hostel, food_months, transport
 
 
-def course_fee(subject, analytics):
-    course_fee = base_fee
+def calculate_course_fee(subject, analytics):
+    fee = base_fee
 
     if analytics == 'y' and subject != "DS":
-        course_fee += base_fee * 0.10
+        fee += base_fee * 0.10
 
     elif analytics == 'y' and subject == "DS":
         print("Analytics is not applicable for DS")
 
-    return course_fee
+    return fee
 
 
-def food_fee(food_months):
+def calculate_food_fee(food_months):
     return food_months * food_per_month
 
 
-def transport_fee(transport):
+def calculate_transport_fee(transport):
     if transport == "semester":
         return transport_per_sem * 2
 
@@ -264,7 +264,7 @@ def display(subject, course_fee, food_fee, transport_fee, total_fee):
     print("Course Fee:", int(course_fee))
     print("Food Fee:", food_fee)
     print("Transport Fee:", transport_fee)
-    print("Total Annual Cost: ₹", int(total_fee))
+    print("Total Annual Cost: Rs.", int(total_fee))
 
 
 def main():
@@ -274,24 +274,25 @@ def main():
         print("Invalid Subject")
         return
 
-    course_fee = course_fee(subject, analytics)
+    course_amount = calculate_course_fee(subject, analytics)
 
     if hostel == 'y':
-        course_fee += hostel_fee
+        course_amount += hostel_fee
 
-    food_fee = food_fee(food_months)
+    food_amount = calculate_food_fee(food_months)
 
-    transport_fee = transport_fee(transport)
+    transport_amount = calculate_transport_fee(transport)
 
-    if transport_fee is None:
+    if transport_amount is None:
         return
 
-    total_fee = course_fee + food_fee + transport_fee
+    total_fee = course_amount + food_amount + transport_amount
 
-    display(subject, course_fee, food_fee, transport_fee, total_fee)
+    display(subject, course_amount, food_amount, transport_amount, total_fee)
 
 
 main()
+
 
 
 #14. 
@@ -434,7 +435,6 @@ else:
 
 
 #15.
-#16.
 
 
 ######################################## TYPE  CASTING  #####################################
@@ -595,10 +595,6 @@ combination = [[i, j] for i in x_list for j in y_list]
 
 print(combination)
 
-#17.
-#18.
-#19.
-#20.
 
 #21.How to create empty set? 
 s = set()
@@ -791,10 +787,10 @@ def input_marks():
     while True:
         try:
             marks = int(input("Enter marks: "))
-            if 0 <= marks <= 100:
+            if 0 <= marks or marks<= 100:
                 return marks
             else:
-                print("Enter marks between 0-100: ")
+                print("Enter marks: ")
         except ValueError:
             print("Enter valid marks")
 
@@ -830,20 +826,95 @@ def generate_password():
 
 # {1:{name : "Sachine", "DOB": "21-06-1965" , "mobile": "1234123423"},
 # 2: {name : "Sumedh", "DOB": "02-02-2002" , "mobile": "1234123433"}}
-cust_dict = {}
+cust = {}
+cust_no = 1
 
-def add_customer():
-    customer_no = len(cust_dict) + 1
+while True:
     name = input("Enter name: ")
-    dob = input("Enter DOB:  ")
-    mobile = accept_mobile()
-    cust_dict[customer_no] = {"name": name, "DOB": dob, "mobile": mobile}
-    print("Customer added:", cust_dict[customer_no])
+    dob = input("Enter DOB (DD-MM-YYYY): ")
+    mobile = input("Enter mobile number: ")
+
+    cust[cust_no] = {
+        "name": name,
+        "DOB": dob,
+        "mobile": mobile
+    }
+
+    print(cust)
+
+    cust_no += 1
+
+    choice = input("Do you want to add more records? (y/n): ")
+    if choice.lower() != 'y':
+        break
+
 
 # 42.	Based on the above example create the dictionary and save the same in a cust_info.txt or cust_info.log
-# 43.	Based on the above example read the file cust_info.txt . check if dictionary any information is available in the file. If there is information then read the dictionary store into one variable and then append new information of customer if added.
-# 44.	Create a table  cust_info as sr_no, name, DOB, mobile. Ask user to enter the information from python code. Validate all fields and after validation insert records in the table.
+print (cust)
+with open("cust_info.txt", "w") as f:
+    f.write(str(cust))
+print ("Data saved in file as cust_info.txt")
 
+# 43.	Based on the above example read the file cust_info.txt . check if dictionary any information is available in the file. 
+# If there is information then read the dictionary store into one variable and then append new information of customer if added.
+import os
+
+cust = {}
+
+if os.path.exists("cust_info.txt"):
+    with open("cust_info.txt", "r") as f:
+        data = f.read()
+        if data:
+            cust = eval(data)   
+
+
+if cust:
+    cust_no = max(cust.keys()) + 1
+else:
+    cust_no = 1
+
+
+name = input("Enter name: ")
+dob = input("Enter DOB: ")
+mobile = input("Enter mobile: ")
+
+cust[cust_no] = {"name": name, "DOB": dob, "mobile": mobile}
+
+with open("cust_info.txt", "w") as f:
+    f.write(str(cust))
+
+print("Updated Data:", cust)
+
+# 44.	Create a table  cust_info as sr_no, name, DOB, mobile. Ask user to enter the information from python code. 
+# Validate all fields and after validation insert records in the table. 
+import pyodbc
+server = r"DESKTOP-R8VQ8NH\SQLEXPRESS"
+database = "db_demo"
+
+connection_string = (
+            "DRIVER={ODBC Driver 17 for SQL Server};"
+            f"SERVER={server};"
+            f"DATABASE={database};"
+            "Trusted_Connection=yes;"
+            "TrustServerCertificate=yes;"
+        )
+
+conn = pyodbc.connect(connection_string)
+cursor = conn.cursor()
+cur = conn.cursor()
+name = input("Enter name: ").strip()
+if not name.isalpha():
+    print("Invalid name")
+dob = input("Enter DOB (DD-MM-YYYY): ").strip()
+mobile = input ("Enter the mobile number: ")
+if mobile.isdigit() and len(mobile) == 10:
+    print (mobile)
+else:
+    print("Invalid mobile number")
+cur.execute("INSERT INTO cust_info (name, DOB, mobile) VALUES (?, ?, ?)", (name, dob, mobile))
+conn.commit()
+conn.close()
+print("Record inserted successfully")
 
 # 45.	Dict1= {“Key”: {“subkey”:20} ,  “k2”:{“sub2” : 5}, “k3” : {“sub4” :16},  “k4” : {“sub4” : 6}}
 # Sort elements based on values
