@@ -38,7 +38,7 @@ class Customer:
                     self.dish = value[0]
                     self.price = price
                     return
-            print("Invalid Dish Name! ")
+            print("Invalid Dish Name! Try again.")
 
     def quantity(self):
         while True:
@@ -47,7 +47,7 @@ class Customer:
                 if self.qty > 0:
                     return
                 else:
-                    print("Quantity must be > 0")
+                    print("Quantity must be greater than 0")
             except ValueError:
                 print("Enter valid number")
 
@@ -73,9 +73,9 @@ class Hotel:
     # Generate bill
     def generate_bill(self, table, order):
         bill = ""
-        bill += "\n" + "-" 
+        bill += "\n" + "---------------------"
         bill += "\n        HOTEL BILL"
-        bill += "\n" + "-"
+        bill += "\n" + "---------------------"
 
         bill += f"\nCustomer : {order['customer']}"
         bill += f"\nTable No : {table}"
@@ -84,9 +84,9 @@ class Hotel:
         bill += f"\nQuantity : {order['qty']}"
         bill += f"\nPrice    : {order['price']} Rs"
 
-        bill += "\n" + "-" 
+        bill += "\n" + "-----------------"
         bill += f"\nTotal Amount : {order['total']} Rs"
-        bill += "\n" + "-" 
+        bill += "\n" + "-----------------"
 
         return bill
 
@@ -125,11 +125,29 @@ class Hotel:
 
     # Print bill
     def print_bill(self, bill):
-        ch = input("\nDo you want to print bill? (yes/no): ")
+        ch = input("\nDo you want to show the bill? (yes/no): ")
         if ch == "yes":
             print(bill)
         else:
             print("Bill Not Printed")
+
+        #Save the bill
+    def print_bill(self, bill):
+        ch = input("\nDo you want to print bill? (yes/no): ").lower()
+
+        if ch == "yes":
+            print(bill)
+            
+            file_name = "hotel_bill.txt"
+
+            with open(file_name, "w") as f:
+                f.write(bill)
+
+            print("\nBill saved successfully in", file_name)
+
+        else:
+            print("Bill Not Printed")
+
 
     # Main program
     def run(self):
@@ -147,4 +165,3 @@ class Hotel:
 if __name__ == "__main__":
     system = Hotel()
     system.run()
-
